@@ -1,4 +1,5 @@
 from pathlib import Path
+import urllib.request
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +7,20 @@ from fastapi.staticfiles import StaticFiles
 
 import config
 from routers import predict
+
+# ---------------------------------------------------------
+# Download model weights from Hugging Face if not present
+# (both models live in the same repo: Tuhin-2003/paddy)
+# ---------------------------------------------------------
+MODEL_URLS = {
+    config.PADDY_MODEL_PATH: "https://huggingface.co/Tuhin-2003/paddy/resolve/main/best_mobilenet_v3_small.pth",
+    config.DISEASE_MODEL_PATH: "https://huggingface.co/Tuhin-2003/paddy/resolve/main/best_fresh_balanced_convnext.pth",
+}
+
+for path, url in MODEL_URLS.items():
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(url, path)
 
 app = FastAPI(title="Paddy Check API")
 
