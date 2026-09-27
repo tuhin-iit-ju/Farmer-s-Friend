@@ -57,9 +57,9 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     "http://localhost:5500",
-    "null",  # allows requests from files opened directly (file://)
+    "null",
+    "https://paddydisease.netlify.app",
 ]
-
 # ---------- reference-image similarity / vectorization ----------
 # Whole-image feature-vector search (ConvNeXt embeddings + cosine
 # similarity), same approach as run_clean_balanced_diagnostic in
