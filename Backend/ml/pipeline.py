@@ -97,15 +97,7 @@ def run_pipeline(image_bytes: bytes) -> dict:
 
     image_pil = bytes_to_pil_image(image_bytes)
 
-    localization = localize_disease(
-        disease_model=_disease_classifier.model,
-        image_pil=image_pil,
-        pred_idx=pred_idx,
-        transform=_disease_classifier.transform,
-        device=config.DEVICE,
-        mean=config.IMAGENET_MEAN,
-        std=config.IMAGENET_STD,
-    )
+    localization = None
 
     # ---------------------------------------------------------
     # 6. Final response
